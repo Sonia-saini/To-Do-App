@@ -28,7 +28,7 @@ todoRouter.get("/gettodo", async (req, res) => {
 });
 todoRouter.patch("/updatetodo/:id", async (req, res) => {
   const { id } = req.params;
-  const { userId } = req.body;
+  const { userId } = req.headers;
   try {
     let match = await Todomodel.findOne({ _id: id, userId });
     if (match) {
@@ -46,7 +46,7 @@ todoRouter.patch("/updatetodo/:id", async (req, res) => {
 });
 todoRouter.delete("/deletetodo/:id", async (req, res) => {
   const { id } = req.params;
-  const { userId } = req.body;
+  const { userId } = req.headers;
   try {
     let match = await Todomodel.findOne({ _id: id, userId });
     if (match) {
