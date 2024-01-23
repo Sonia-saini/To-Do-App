@@ -18,7 +18,7 @@ todoRouter.post("/addtodo", async (req, res) => {
   }
 });
 todoRouter.get("/gettodo", async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.headers;
   try {
     let alltodo = await Todomodel.find({ userId });
     res.status(200).json({ todo: alltodo });
