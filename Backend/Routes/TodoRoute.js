@@ -20,7 +20,7 @@ todoRouter.post("/addtodo", async (req, res) => {
 todoRouter.get("/gettodo", async (req, res) => {
   const { userId } = req.headers;
   try {
-    let alltodo = await Todomodel.find({ userId });
+    let alltodo = await Todomodel.find({ userId: userId });
     res.status(200).json({ todo: alltodo });
   } catch (err) {
     res.status(400).json({ msg: "To do get request have some error" });
@@ -30,10 +30,10 @@ todoRouter.patch("/updatetodo/:id", async (req, res) => {
   const { id } = req.params;
   const { userId } = req.headers;
   try {
-    let match = await Todomodel.findOne({ _id: id, userId });
+    let match = await Todomodel.findOne({ _id: id, userId: userId });
     if (match) {
       let todo = await Todomodel.findByIdAndUpdate(
-        { _id: id, userId },
+        { _id: id, userId: userId },
         req.body
       );
       res.status(200).json({ msg: "Task is updated" });
@@ -48,10 +48,10 @@ todoRouter.delete("/deletetodo/:id", async (req, res) => {
   const { id } = req.params;
   const { userId } = req.headers;
   try {
-    let match = await Todomodel.findOne({ _id: id, userId });
+    let match = await Todomodel.findOne({ _id: id, userId: userId });
     if (match) {
       let todo = await Todomodel.findByIdAndDelete(
-        { _id: id, userId },
+        { _id: id, userId: userId },
         req.body
       );
       res.status(200).json({ msg: "Task is deleted" });
